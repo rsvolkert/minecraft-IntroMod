@@ -1,5 +1,6 @@
 package com.rvolkert.intromod.networking.packet;
 
+import com.rvolkert.intromod.thirst.PlayerThirstProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -42,11 +43,20 @@ public class DrinkWaterC2SPacket {
                 level.playSound(null, player.getOnPos(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS,
                         0.5F, level.random.nextFloat() * 0.1F + 0.9F);
                 // Increase thirst level of player
-                // Output current thirst level
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    thirst.addThirst(1);
+                    // Output current thirst level
+                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+                            .withStyle(ChatFormatting.AQUA));
+                });
             } else {
                 // Notify player that there is no water around
                 player.sendSystemMessage(Component.translatable(MESSAGE_NO_WATER).withStyle(ChatFormatting.RED));
                 // Output current thirst level
+                player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
+                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+                            .withStyle(ChatFormatting.AQUA));
+                });
             }
         });
         return true;
