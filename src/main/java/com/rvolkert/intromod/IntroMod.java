@@ -4,6 +4,10 @@ import com.mojang.logging.LogUtils;
 import com.rvolkert.intromod.block.ModBlocks;
 import com.rvolkert.intromod.item.ModCreativeModeTab;
 import com.rvolkert.intromod.item.ModItems;
+import com.rvolkert.intromod.painting.ModPaintings;
+import com.rvolkert.intromod.villager.ModVillagers;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -27,6 +31,9 @@ public class IntroMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
+        ModVillagers.register(modEventBus);
+        ModPaintings.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -38,7 +45,9 @@ public class IntroMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            ModVillagers.registerPOIs();
+        });
     }
 
     private void addCreative(CreativeModeTabEvent.BuildContents event) {
@@ -49,6 +58,10 @@ public class IntroMod {
             event.accept(ModBlocks.ZIRCON_ORE);
             event.accept(ModBlocks.DEEPSLATE_ZIRCON_ORE);
             event.accept(ModItems.EIGHT_BALL);
+            event.accept(ModBlocks.JUMPY_BLOCK);
+            event.accept(ModBlocks.ZIRCON_LAMP);
+            event.accept(ModItems.BLUEBERRY_SEEDS);
+            event.accept(ModItems.BLUEBERRY);
         }
     }
 
@@ -57,7 +70,6 @@ public class IntroMod {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
         }
     }
 }

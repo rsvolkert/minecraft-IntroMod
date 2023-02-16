@@ -2,8 +2,16 @@
   "item.intromod.zircon": "Zircon",
   "item.intromod.raw_zircon": "Raw Zircon",
   "item.intromod.eight_ball": "Eight Ball",
+  "item.intromod.blueberry": "Blueberry",
+  "item.intromod.blueberry_seeds": "Blueberry Seeds",
 
   "block.intromod.zircon_block": "Block of Zircon",
   "block.intromod.zirconore": "Zircon Ore",
-  "block.intromod.deepslate_zirconore": "Deepslate Zircon Ore"
+  "block.intromod.deepslate_zirconore": "Deepslate Zircon Ore",
+  "block.intromod.zircon_lamp": "Zircon Lamp",
+  "block.intromod.endstone_zirconore": "Endstone Zircon Ore",
+  "block.intromod.netherrack_zirconore": "Netherrack Zircon Ore",
+
+  "block.intromod.jumpy_block": "Jumpy Block",
+  "entity.minecraft.villager.intromod.jump_master": "Jump Master"
 }
