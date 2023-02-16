@@ -2,10 +2,8 @@ package com.rvolkert.intromod.event;
 
 import com.rvolkert.intromod.IntroMod;
 import com.rvolkert.intromod.networking.ModMessages;
-import com.rvolkert.intromod.networking.packet.ExampleC2SPacket;
+import com.rvolkert.intromod.networking.packet.DrinkWaterC2SPacket;
 import com.rvolkert.intromod.util.KeyBinding;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -18,7 +16,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             if(KeyBinding.DRINKING_KEY.consumeClick()) {
-                ModMessages.sendToServer(new ExampleC2SPacket());
+                ModMessages.sendToServer(new DrinkWaterC2SPacket());
             }
         }
     }

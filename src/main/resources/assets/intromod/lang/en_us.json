@@ -16,5 +16,8 @@
   "entity.minecraft.villager.intromod.jump_master": "Jump Master",
 
   "key.category.intromod.tutorial": "Intro Mod",
-  "key.intromod.drink_water": "Drink Water"
+  "key.intromod.drink_water": "Drink Water",
+
+  "message.intromod.drink_water": "Drinking Water",
+  "message.intromod.no_water": "No water nearby!"
 }

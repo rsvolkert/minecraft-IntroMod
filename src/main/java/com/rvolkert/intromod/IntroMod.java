@@ -47,8 +47,8 @@ public class IntroMod {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            ModVillagers.registerPOIs();
             ModMessages.register();
+            ModVillagers.registerPOIs();
         });
     }
 
