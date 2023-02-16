@@ -1,5 +1,6 @@
 package com.rvolkert.intromod.networking.packet;
 
+import com.rvolkert.intromod.networking.ModMessages;
 import com.rvolkert.intromod.thirst.PlayerThirstProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +39,7 @@ public class DrinkWaterC2SPacket {
             // Check if player is near water
             if(hasWaterAroundThem(player, level, 2)) {
                 // Notify player that water has been drunk
-                player.sendSystemMessage(Component.translatable(MESSAGE_DRINK_WATER).withStyle(ChatFormatting.DARK_AQUA));
+//                player.sendSystemMessage(Component.translatable(MESSAGE_DRINK_WATER).withStyle(ChatFormatting.DARK_AQUA));
                 // Play the drinking sound
                 level.playSound(null, player.getOnPos(), SoundEvents.GENERIC_DRINK, SoundSource.PLAYERS,
                         0.5F, level.random.nextFloat() * 0.1F + 0.9F);
@@ -46,16 +47,18 @@ public class DrinkWaterC2SPacket {
                 player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
                     thirst.addThirst(1);
                     // Output current thirst level
-                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
-                            .withStyle(ChatFormatting.AQUA));
+//                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+//                            .withStyle(ChatFormatting.AQUA));
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), player);
                 });
             } else {
                 // Notify player that there is no water around
                 player.sendSystemMessage(Component.translatable(MESSAGE_NO_WATER).withStyle(ChatFormatting.RED));
                 // Output current thirst level
                 player.getCapability(PlayerThirstProvider.PLAYER_THIRST).ifPresent(thirst -> {
-                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
-                            .withStyle(ChatFormatting.AQUA));
+//                    player.sendSystemMessage(Component.literal("Current Thirst " + thirst.getThirst())
+//                            .withStyle(ChatFormatting.AQUA));
+                    ModMessages.sendToPlayer(new ThirstDataSyncS2CPacket(thirst.getThirst()), player);
                 });
             }
         });
