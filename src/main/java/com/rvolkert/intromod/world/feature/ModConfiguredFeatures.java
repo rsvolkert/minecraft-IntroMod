@@ -9,33 +9,37 @@ import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 public class ModConfiguredFeatures {
-    public static ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ZIRCON_ORE_KEY = registerKey("overworld_zircon_ore");
+    public static ResourceKey<ConfiguredFeature<?, ?>> OVERWORLD_ZIRCON_ORE_KEY = registerKey("overworld_zirconore");
+    public static ResourceKey<ConfiguredFeature<?, ?>> ENDSTONE_ZIRCON_ORE_KEY = registerKey("endstone_zirconore");
+    public static ResourceKey<ConfiguredFeature<?, ?>> NETHERRACK_ZIRCON_ORE_KEY = registerKey("netherrack_zirconore");
 
     public static final Supplier<List<OreConfiguration.TargetBlockState>> OVERWORLD_ZIRCON_ORES = Suppliers.memoize(() -> List.of(
             OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ModBlocks.ZIRCON_ORE.get().defaultBlockState()),
             OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), ModBlocks.DEEPSLATE_ZIRCON_ORE.get().defaultBlockState())));
     public static final Supplier<List<OreConfiguration.TargetBlockState>> ENDSTONE_ZIRCON_ORES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ModBlocks.ZIRCON_ORE.get().defaultBlockState()),
-            OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), ModBlocks.DEEPSLATE_ZIRCON_ORE.get().defaultBlockState())));
+            OreConfiguration.target(new BlockMatchTest(Blocks.END_STONE), ModBlocks.ENDSTONE_ZIRCON_ORE.get().defaultBlockState())));
     public static final Supplier<List<OreConfiguration.TargetBlockState>> NETHERRACK_ZIRCON_ORES = Suppliers.memoize(() -> List.of(
-            OreConfiguration.target(new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES), ModBlocks.ZIRCON_ORE.get().defaultBlockState()),
-            OreConfiguration.target(new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES), ModBlocks.DEEPSLATE_ZIRCON_ORE.get().defaultBlockState())));
+            OreConfiguration.target(new BlockMatchTest(Blocks.NETHERRACK), ModBlocks.NETHERRACK_ZIRCON_ORE.get().defaultBlockState())));
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 
         register(context, OVERWORLD_ZIRCON_ORE_KEY, Feature.ORE, new OreConfiguration(OVERWORLD_ZIRCON_ORES.get(),12));
+        register(context, ENDSTONE_ZIRCON_ORE_KEY, Feature.ORE, new OreConfiguration(ENDSTONE_ZIRCON_ORES.get(), 12));
+        register(context, NETHERRACK_ZIRCON_ORE_KEY, Feature.ORE, new OreConfiguration(NETHERRACK_ZIRCON_ORES.get(), 12));
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
