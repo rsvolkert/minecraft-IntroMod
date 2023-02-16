@@ -13,5 +13,8 @@
   "block.intromod.netherrack_zirconore": "Netherrack Zircon Ore",
 
   "block.intromod.jumpy_block": "Jumpy Block",
-  "entity.minecraft.villager.intromod.jump_master": "Jump Master"
+  "entity.minecraft.villager.intromod.jump_master": "Jump Master",
+
+  "key.category.intromod.tutorial": "Intro Mod",
+  "key.intromod.drink_water": "Drink Water"
 }
