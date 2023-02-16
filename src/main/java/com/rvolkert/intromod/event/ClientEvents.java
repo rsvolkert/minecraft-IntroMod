@@ -1,6 +1,8 @@
 package com.rvolkert.intromod.event;
 
 import com.rvolkert.intromod.IntroMod;
+import com.rvolkert.intromod.networking.ModMessages;
+import com.rvolkert.intromod.networking.packet.ExampleC2SPacket;
 import com.rvolkert.intromod.util.KeyBinding;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -16,7 +18,7 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyInput(InputEvent.Key event) {
             if(KeyBinding.DRINKING_KEY.consumeClick()) {
-                Minecraft.getInstance().player.sendSystemMessage(Component.literal("Pressed a key!"));
+                ModMessages.sendToServer(new ExampleC2SPacket());
             }
         }
     }

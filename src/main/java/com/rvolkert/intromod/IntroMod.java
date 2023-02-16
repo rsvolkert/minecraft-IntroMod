@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.rvolkert.intromod.block.ModBlocks;
 import com.rvolkert.intromod.item.ModCreativeModeTab;
 import com.rvolkert.intromod.item.ModItems;
+import com.rvolkert.intromod.networking.ModMessages;
 import com.rvolkert.intromod.painting.ModPaintings;
 import com.rvolkert.intromod.villager.ModVillagers;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -47,6 +48,7 @@ public class IntroMod {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             ModVillagers.registerPOIs();
+            ModMessages.register();
         });
     }
 
