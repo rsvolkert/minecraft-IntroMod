@@ -2,13 +2,17 @@ package com.rvolkert.intromod;
 
 import com.mojang.logging.LogUtils;
 import com.rvolkert.intromod.block.ModBlocks;
+import com.rvolkert.intromod.block.entity.ModBlockEntities;
 import com.rvolkert.intromod.fluid.ModFluidTypes;
 import com.rvolkert.intromod.fluid.ModFluids;
 import com.rvolkert.intromod.item.ModCreativeModeTab;
 import com.rvolkert.intromod.item.ModItems;
 import com.rvolkert.intromod.networking.ModMessages;
 import com.rvolkert.intromod.painting.ModPaintings;
+import com.rvolkert.intromod.screen.GemInfusingStationScreen;
+import com.rvolkert.intromod.screen.ModMenuTypes;
 import com.rvolkert.intromod.villager.ModVillagers;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.Item;
@@ -40,6 +44,9 @@ public class IntroMod {
 
         ModFluids.register(modEventBus);
         ModFluidTypes.register(modEventBus);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -84,6 +91,8 @@ public class IntroMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SOAP_WATER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
+
+            MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
         }
     }
 }
