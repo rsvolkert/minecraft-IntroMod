@@ -73,6 +73,7 @@ public class IntroMod {
             event.accept(ModItems.BLUEBERRY_SEEDS);
             event.accept(ModItems.BLUEBERRY);
             event.accept(ModItems.SOAP_WATER_BUCKET);
+            event.accept(ModBlocks.GEM_INFUSING_STATION);
         }
     }
 

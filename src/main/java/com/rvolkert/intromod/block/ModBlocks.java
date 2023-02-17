@@ -2,6 +2,7 @@ package com.rvolkert.intromod.block;
 
 import com.rvolkert.intromod.IntroMod;
 import com.rvolkert.intromod.block.custom.BlueberryCropBlock;
+import com.rvolkert.intromod.block.custom.GemInfusingStationBlock;
 import com.rvolkert.intromod.block.custom.JumpyBlock;
 import com.rvolkert.intromod.block.custom.ZirconLampBlock;
 import com.rvolkert.intromod.fluid.ModFluids;
@@ -60,6 +61,10 @@ public class ModBlocks {
 
     public static final RegistryObject<LiquidBlock> SOAP_WATER_BLOCK = BLOCKS.register("soap_water_block",
             () -> new LiquidBlock(ModFluids.SOURCE_SOAP_WATER, BlockBehaviour.Properties.copy(Blocks.WATER)));
+
+    public static final RegistryObject<Block> GEM_INFUSING_STATION = registerBlock("gem_infusing_station",
+            () -> new GemInfusingStationBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .strength(6f).requiresCorrectToolForDrops().noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
