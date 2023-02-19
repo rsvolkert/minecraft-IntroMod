@@ -6,6 +6,7 @@ import com.rvolkert.intromod.recipe.GemInfusingStationRecipe;
 import com.rvolkert.intromod.screen.GemInfusingStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
@@ -27,6 +28,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
 import java.util.Optional;
 
 public class GemInfusingStationBlockEntity extends BlockEntity implements MenuProvider {
@@ -35,9 +37,28 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
         protected void onContentsChanged(int slot) {
             setChanged();
         }
+
+        @Override
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            return switch (slot) {
+                case 0 -> stack.getItem() == ModItems.ZIRCON.get();
+                case 1 -> stack.getItem() == ModItems.RAW_ZIRCON.get();
+                case 2 -> false;
+                default -> super.isItemValid(slot, stack);
+            };
+        }
     };
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private final Map<Direction, LazyOptional<WrappedHandler>> directionWrappedHandlerMap =
+            Map.of(Direction.DOWN, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 2, (i, s) -> false)),
+                    Direction.NORTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (index) -> index == 1,
+                            (index, stack) -> itemHandler.isItemValid(1, stack))),
+                    Direction.SOUTH, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 2, (i, s) -> false)),
+                    Direction.EAST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (i) -> i == 1,
+                            (index, stack) -> itemHandler.isItemValid(1, stack))),
+                    Direction.WEST, LazyOptional.of(() -> new WrappedHandler(itemHandler, (index) -> index == 0 || index == 1,
+                            (index, stack) -> itemHandler.isItemValid(0, stack) || itemHandler.isItemValid(1, stack))));
 
     protected final ContainerData data;
     private int progress = 0;
@@ -87,6 +108,21 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
             if(side == null) {
                 return lazyItemHandler.cast();
             }
+        }
+
+        if(directionWrappedHandlerMap.containsKey(side)) {
+            Direction localDir = this.getBlockState().getValue(GemInfusingStationBlock.FACING);
+
+            if(side == Direction.UP || side == Direction.DOWN) {
+                return directionWrappedHandlerMap.get(side).cast();
+            }
+
+            return switch (localDir) {
+                default -> directionWrappedHandlerMap.get(side.getOpposite()).cast();
+                case EAST -> directionWrappedHandlerMap.get(side.getClockWise()).cast();
+                case SOUTH -> directionWrappedHandlerMap.get(side).cast();
+                case WEST -> directionWrappedHandlerMap.get(side.getCounterClockWise()).cast();
+            };
         }
 
         return super.getCapability(cap, side);
