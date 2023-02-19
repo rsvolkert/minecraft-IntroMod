@@ -9,6 +9,7 @@ import com.rvolkert.intromod.item.ModCreativeModeTab;
 import com.rvolkert.intromod.item.ModItems;
 import com.rvolkert.intromod.networking.ModMessages;
 import com.rvolkert.intromod.painting.ModPaintings;
+import com.rvolkert.intromod.recipe.ModRecipes;
 import com.rvolkert.intromod.screen.GemInfusingStationScreen;
 import com.rvolkert.intromod.screen.ModMenuTypes;
 import com.rvolkert.intromod.villager.ModVillagers;
@@ -47,6 +48,8 @@ public class IntroMod {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipes.register(modEventBus);
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);

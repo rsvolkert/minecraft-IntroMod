@@ -2,6 +2,7 @@ package com.rvolkert.intromod.block.entity;
 
 import com.rvolkert.intromod.block.custom.GemInfusingStationBlock;
 import com.rvolkert.intromod.item.ModItems;
+import com.rvolkert.intromod.recipe.GemInfusingStationRecipe;
 import com.rvolkert.intromod.screen.GemInfusingStationMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,6 +26,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class GemInfusingStationBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(3) {
@@ -145,9 +148,19 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     }
 
     private static void craftItem(GemInfusingStationBlockEntity pEntity) {
+        Level level = pEntity.level;
+
+        SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
+        for (int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
+            inventory.setItem(i, pEntity.itemHandler.getStackInSlot(i));
+        }
+
+        Optional<GemInfusingStationRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(GemInfusingStationRecipe.Type.INSTANCE, inventory, level);
+
         if(hasRecipe(pEntity)) {
             pEntity.itemHandler.extractItem(1, 1, false);
-            pEntity.itemHandler.setStackInSlot(2, new ItemStack(ModItems.ZIRCON.get(),
+            pEntity.itemHandler.setStackInSlot(2, new ItemStack(recipe.get().getResultItem().getItem(),
                     pEntity.itemHandler.getStackInSlot(2).getCount() + 1));
 
             pEntity.resetProgress();
@@ -155,15 +168,18 @@ public class GemInfusingStationBlockEntity extends BlockEntity implements MenuPr
     }
 
     private static boolean hasRecipe(GemInfusingStationBlockEntity pEntity) {
+        Level level = pEntity.level;
+
         SimpleContainer inventory = new SimpleContainer(pEntity.itemHandler.getSlots());
         for (int i = 0; i < pEntity.itemHandler.getSlots(); i++) {
             inventory.setItem(i, pEntity.itemHandler.getStackInSlot(i));
         }
 
-        boolean hasRawGemInFirstSlot = pEntity.itemHandler.getStackInSlot(1).getItem() == ModItems.RAW_ZIRCON.get();
+        Optional<GemInfusingStationRecipe> recipe = level.getRecipeManager()
+                .getRecipeFor(GemInfusingStationRecipe.Type.INSTANCE, inventory, level);
 
-        return hasRawGemInFirstSlot && canInsertAmountIntoOutputSlot(inventory) &&
-                canInsertItemIntoOutputSlot(inventory, new ItemStack(ModItems.ZIRCON.get(), 1));
+        return recipe.isPresent() && canInsertAmountIntoOutputSlot(inventory) &&
+                canInsertItemIntoOutputSlot(inventory, recipe.get().getResultItem());
     }
 
     private static boolean canInsertItemIntoOutputSlot(SimpleContainer inventory, ItemStack itemStack) {
