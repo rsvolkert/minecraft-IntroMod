@@ -1,10 +1,13 @@
 package com.rvolkert.intromod.world.feature;
 
 import com.rvolkert.intromod.IntroMod;
+import com.rvolkert.intromod.block.ModBlocks;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -14,12 +17,21 @@ import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;
 
 public class ModPlacedFeatures {
+    public static final ResourceKey<PlacedFeature> RED_MAPLE_CHECKED_KEY = createKey("red_maple_checked");
+    public static final ResourceKey<PlacedFeature> RED_MAPLE_PLACED_KEY = createKey("red_maple_placed");
+
+
     public static final ResourceKey<PlacedFeature> ZIRCON_PLACED_KEY = createKey("zircon_placed");
     public static final ResourceKey<PlacedFeature> END_ZIRCON_PLACED_KEY = createKey("end_zircon_placed");
     public static final ResourceKey<PlacedFeature> NETHER_ZIRCON_PLACED_KEY = createKey("nether_zircon_placed");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
+
+        register(context, RED_MAPLE_CHECKED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY),
+                List.of(PlacementUtils.filteredByBlockSurvival(ModBlocks.RED_MAPLE_SAPLING.get())));
+        register(context, RED_MAPLE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.RED_MAPLE_KEY),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2)));
 
         register(context, ZIRCON_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeatures.OVERWORLD_ZIRCON_ORE_KEY),
                 commonOrePlacement(12,

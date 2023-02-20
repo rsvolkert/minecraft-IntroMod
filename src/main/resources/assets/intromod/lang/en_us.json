@@ -16,6 +16,14 @@
   "block.intromod.netherrack_zirconore": "Netherrack Zircon Ore",
   "block.intromod.gem_infusing_station": "Gem Infusing Station",
 
+  "block.intromod.red_maple_log": "Red Maple Log",
+  "block.intromod.red_maple_planks": "Red Maple Planks",
+  "block.intromod.red_maple_wood": "Red Maple Wood",
+  "block.intromod.stripped_red_maple_log": "Stripped Red Maple Log",
+  "block.intromod.stripped_red_maple_wood": "Stripped Red Maple Wood",
+  "block.intromod.red_maple_leaves": "Red Maple Leaves",
+  "block.intromod.red_maple_sapling": "Red Maple Sapling",
+
   "block.intromod.jumpy_block": "Jumpy Block",
   "entity.minecraft.villager.intromod.jump_master": "Jump Master",
 

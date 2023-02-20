@@ -92,6 +92,13 @@ public class IntroMod {
             event.accept(ModBlocks.GEM_INFUSING_STATION);
             event.accept(ModItems.CHOMPER_SPAWN_EGG);
             event.accept(ModItems.ZIRCON_PICKAXE);
+            event.accept(ModBlocks.RED_MAPLE_LOG);
+            event.accept(ModBlocks.RED_MAPLE_WOOD);
+            event.accept(ModBlocks.STRIPPED_RED_MAPLE_LOG);
+            event.accept(ModBlocks.STRIPPED_RED_MAPLE_WOOD);
+            event.accept(ModBlocks.RED_MAPLE_PLANKS);
+            event.accept(ModBlocks.RED_MAPLE_LEAVES);
+            event.accept(ModBlocks.RED_MAPLE_SAPLING);
         }
     }
 

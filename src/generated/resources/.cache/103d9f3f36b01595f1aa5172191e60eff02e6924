@@ -1,7 +1,11 @@
-// 1.19.3	2023-02-16T09:35:18.82655	Registries
+// 1.19.3	2023-02-20T10:23:11.885445	Registries
 3a120622552f971e3546e5d74445bcc5c4550067 data/intromod/worldgen/configured_feature/endstone_zirconore.json
 6fbe776d8eaef500ef51d0a8ac2c783992913cdb data/intromod/worldgen/configured_feature/netherrack_zirconore.json
 d5fd5dd5bf16147a18e381228fd089244493ce09 data/intromod/worldgen/configured_feature/overworld_zirconore.json
+f3e96bda9fcc9c08b49f1e3dbfb1307e1ad52686 data/intromod/worldgen/configured_feature/red_maple.json
+4d37e68c573f0f8003b76e3e52b12889dedb8f29 data/intromod/worldgen/configured_feature/red_maple_spawn.json
 59985a2a829f8c7b5edd4bc05e7048b8497cfcec data/intromod/worldgen/placed_feature/end_zircon_placed.json
 37099863475578bc6229b629ecba14805fad3ca2 data/intromod/worldgen/placed_feature/nether_zircon_placed.json
+815593a0c3ec9c70769c465e07a19690d64e116a data/intromod/worldgen/placed_feature/red_maple_checked.json
+e8acf901937b65d14f44687a5acb5a914cfcea0d data/intromod/worldgen/placed_feature/red_maple_placed.json
 a8496789fac4e7ce06238dfa0f98921b1fa1b96e data/intromod/worldgen/placed_feature/zircon_placed.json
