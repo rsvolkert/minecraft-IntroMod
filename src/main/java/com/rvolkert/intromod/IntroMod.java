@@ -91,6 +91,7 @@ public class IntroMod {
             event.accept(ModItems.SOAP_WATER_BUCKET);
             event.accept(ModBlocks.GEM_INFUSING_STATION);
             event.accept(ModItems.CHOMPER_SPAWN_EGG);
+            event.accept(ModItems.ZIRCON_PICKAXE);
         }
     }
 
