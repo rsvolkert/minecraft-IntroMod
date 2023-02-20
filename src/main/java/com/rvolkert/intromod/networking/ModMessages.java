@@ -3,9 +3,11 @@ package com.rvolkert.intromod.networking;
 import com.rvolkert.intromod.IntroMod;
 import com.rvolkert.intromod.networking.packet.DrinkWaterC2SPacket;
 import com.rvolkert.intromod.networking.packet.EnergySyncS2CPacket;
+import com.rvolkert.intromod.networking.packet.FluidSyncS2CPacket;
 import com.rvolkert.intromod.networking.packet.ThirstDataSyncS2CPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -44,6 +46,12 @@ public class ModMessages {
                 .decoder(EnergySyncS2CPacket::new)
                 .encoder(EnergySyncS2CPacket::toBytes)
                 .consumerMainThread(EnergySyncS2CPacket::handle)
+                .add();
+
+        net.messageBuilder(FluidSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(FluidSyncS2CPacket::new)
+                .encoder(FluidSyncS2CPacket::toBytes)
+                .consumerMainThread(FluidSyncS2CPacket::handle)
                 .add();
     }
 

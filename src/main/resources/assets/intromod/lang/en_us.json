@@ -21,5 +21,10 @@
   "key.intromod.drink_water": "Drink Water",
 
   "message.intromod.drink_water": "Drinking Water",
-  "message.intromod.no_water": "No water nearby!"
+  "message.intromod.no_water": "No water nearby!",
+
+  "intromod.tooltip.liquid.amount.with.capacity": "%s / %s mB",
+  "intromod.tooltip.liquid.amount": "%s mB",
+
+  "fluid_type.intromod.soap_water_fluid": "Soap Water"
 }
