@@ -3,6 +3,8 @@ package com.rvolkert.intromod;
 import com.mojang.logging.LogUtils;
 import com.rvolkert.intromod.block.ModBlocks;
 import com.rvolkert.intromod.block.entity.ModBlockEntities;
+import com.rvolkert.intromod.entity.ModEntityTypes;
+import com.rvolkert.intromod.entity.client.ChomperRenderer;
 import com.rvolkert.intromod.fluid.ModFluidTypes;
 import com.rvolkert.intromod.fluid.ModFluids;
 import com.rvolkert.intromod.item.ModCreativeModeTab;
@@ -16,7 +18,7 @@ import com.rvolkert.intromod.villager.ModVillagers;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.Item;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -27,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(IntroMod.MOD_ID)
@@ -50,6 +53,9 @@ public class IntroMod {
         ModMenuTypes.register(modEventBus);
 
         ModRecipes.register(modEventBus);
+        ModEntityTypes.register(modEventBus);
+
+        GeckoLib.initialize();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -84,6 +90,7 @@ public class IntroMod {
             event.accept(ModItems.BLUEBERRY);
             event.accept(ModItems.SOAP_WATER_BUCKET);
             event.accept(ModBlocks.GEM_INFUSING_STATION);
+            event.accept(ModItems.CHOMPER_SPAWN_EGG);
         }
     }
 
@@ -96,6 +103,8 @@ public class IntroMod {
             ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SOAP_WATER.get(), RenderType.translucent());
 
             MenuScreens.register(ModMenuTypes.GEM_INFUSING_STATION_MENU.get(), GemInfusingStationScreen::new);
+
+            EntityRenderers.register(ModEntityTypes.CHOMPER.get(), ChomperRenderer::new);
         }
     }
 }
