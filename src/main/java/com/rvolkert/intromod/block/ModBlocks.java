@@ -8,6 +8,7 @@ import com.rvolkert.intromod.world.feature.tree.RedMapleTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -115,6 +116,13 @@ public class ModBlocks {
             });
     public static final RegistryObject<Block> RED_MAPLE_SAPLING = registerBlock("red_maple_sapling",
             () -> new SaplingBlock(new RedMapleTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+
+    public static final RegistryObject<Block> JASMINE = registerBlock("jasmine",
+            () -> new FlowerBlock(MobEffects.GLOWING, 5,
+                    BlockBehaviour.Properties.copy(Blocks.DANDELION)));
+    public static final RegistryObject<Block> POTTED_JASMINE = BLOCKS.register("potted_jasmine",
+            () -> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT), ModBlocks.JASMINE,
+                    BlockBehaviour.Properties.copy(Blocks.DANDELION)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

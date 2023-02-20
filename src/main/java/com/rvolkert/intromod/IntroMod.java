@@ -19,6 +19,11 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -69,6 +74,8 @@ public class IntroMod {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.JASMINE.getId(), ModBlocks.POTTED_JASMINE);
+
             ModMessages.register();
             ModVillagers.registerPOIs();
         });
@@ -99,6 +106,7 @@ public class IntroMod {
             event.accept(ModBlocks.RED_MAPLE_PLANKS);
             event.accept(ModBlocks.RED_MAPLE_LEAVES);
             event.accept(ModBlocks.RED_MAPLE_SAPLING);
+            event.accept(ModBlocks.JASMINE);
         }
     }
 
