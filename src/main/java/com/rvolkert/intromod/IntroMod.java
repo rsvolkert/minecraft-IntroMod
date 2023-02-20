@@ -9,6 +9,7 @@ import com.rvolkert.intromod.fluid.ModFluidTypes;
 import com.rvolkert.intromod.fluid.ModFluids;
 import com.rvolkert.intromod.item.ModCreativeModeTab;
 import com.rvolkert.intromod.item.ModItems;
+import com.rvolkert.intromod.loot.ModLootModifiers;
 import com.rvolkert.intromod.networking.ModMessages;
 import com.rvolkert.intromod.painting.ModPaintings;
 import com.rvolkert.intromod.recipe.ModRecipes;
@@ -59,6 +60,8 @@ public class IntroMod {
 
         ModRecipes.register(modEventBus);
         ModEntityTypes.register(modEventBus);
+
+        ModLootModifiers.register(modEventBus);
 
         GeckoLib.initialize();
 
